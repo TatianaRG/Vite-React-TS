@@ -11,11 +11,7 @@ type PropsType = {
   REDUCER_ACTIONS: ReducerActionType;
 };
 
-function CartLineItem({
-  item,
-  dispatch,
-  REDUCER_ACTIONS,
-}: PropsType) {
+function CartLineItem({ item, dispatch, REDUCER_ACTIONS }: PropsType) {
   const img: string = new URL(`../images/${item.sku}.jpg`, import.meta.url)
     .href;
 
@@ -95,12 +91,21 @@ function CartLineItem({
 }
 
 //optimisation
-function areItemsEqual({ item: prevItem }: PropsType, { item: nextItem }: PropsType) {
-  return Object.keys(prevItem).every(key => {
-      return prevItem[key as keyof CartItemType] === nextItem[key as keyof CartItemType]
-  })
+function areItemsEqual(
+  { item: prevItem }: PropsType,
+  { item: nextItem }: PropsType
+) {
+  return Object.keys(prevItem).every((key) => {
+    return (
+      prevItem[key as keyof CartItemType] ===
+      nextItem[key as keyof CartItemType]
+    );
+  });
 }
 
-const MemoizedCartLineItem = memo<typeof CartLineItem>(CartLineItem, areItemsEqual)
+const MemoizedCartLineItem = memo<typeof CartLineItem>(
+  CartLineItem,
+  areItemsEqual
+);
 
-export default MemoizedCartLineItem
+export default MemoizedCartLineItem;
